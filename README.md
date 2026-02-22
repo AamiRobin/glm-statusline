@@ -81,7 +81,7 @@ npm install
 ```bash
 curl -o ~/.claude/statusline-command.js https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/statusline-command.js
 # On Windows
-curl -o %USERPROFILE%\.claude\statusline-command.js https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/statusline-command.js
+curl -o "$env:USERPROFILE\.claude\statusline-command.js" https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/statusline-command.js
 ```
 
 ### Option 3: Using Bun (Recommended for Windows)
