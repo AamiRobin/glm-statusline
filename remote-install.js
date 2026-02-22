@@ -77,11 +77,13 @@ https.get(SCRIPT_URL, (response) => {
 
     // Write updated settings
     fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
-    console.log('✅ Updated settings.json with statusline configuration');
+    console.log('✅ Updated settings.json with statusline configuration:');
+    console.log(`   "statusLine": {`);
+    console.log(`     "type": "command",`);
+    console.log(`     "command": "${statuslineCommand}"`);
+    console.log(`   }`);
 
     console.log('\n✨ Installation complete!\n');
-    console.log('Your statusline has been configured to use:');
-    console.log(`   ${statuslineCommand}`);
     console.log('\n📝 Next steps:');
     console.log('   1. Make sure your settings.json contains GLM API credentials:');
     console.log('      - ANTHROPIC_BASE_URL');
