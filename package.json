@@ -1,0 +1,34 @@
+{
+  "name": "glm-statusline",
+  "version": "1.0.0",
+  "description": "A beautiful statusline for Claude Code that displays real-time quota, context usage, and reset information from the GLM API",
+  "main": "statusline-command.js",
+  "bin": {
+    "glm-statusline": "./statusline-command.js"
+  },
+  "scripts": {
+    "test": "echo '{\"context_window\":{\"used_percentage\":45},\"workspace\":{\"current_dir\":\"/test/project\"}}' | node statusline-command.js",
+    "install": "node install.js"
+  },
+  "keywords": [
+    "claude-code",
+    "statusline",
+    "glm-api",
+    "quota-monitor",
+    "cli",
+    "developer-tools"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/glm-statusline.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/glm-statusline/issues"
+  },
+  "homepage": "https://github.com/your-username/glm-statusline#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
