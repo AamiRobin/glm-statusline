@@ -14,7 +14,7 @@ const claudeDir = path.join(homeDir, '.claude');
 const settingsPath = path.join(claudeDir, 'settings.json');
 const targetScriptPath = path.join(claudeDir, 'statusline-command.js');
 
-const REPO_URL = 'https://raw.githubusercontent.com/AamiRobin/glm-statusline/main';
+const REPO_URL = 'https://raw.githubusercontent.com/AamiRobin/glm-statusline/master';
 const SCRIPT_URL = `${REPO_URL}/statusline-command.js`;
 
 console.log('🚀 Installing GLM Statusline for Claude Code...\n');
