@@ -1,13 +1,9 @@
 # GLM Statusline for Claude Code
 
-[![npm version](https://badge.fury.io/js/glm-statusline.svg)](https://www.npmjs.com/package/glm-statusline)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Test Status](https://github.com/your-username/glm-statusline/workflows/Test%20Statusline/badge.svg)](https://github.com/your-username/glm-statusline/actions)
-[![Platform](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)](https://github.com/your-username/glm-statusline)
+[![Platform](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)](https://github.com/AamiRobin/glm-statusline)
 
 A beautiful, feature-rich statusline for **Claude Code** that displays real-time quota, context usage, and reset information from the **GLM API** (api.z.ai).
-
-## ✨ Features
 
 ## ✨ Features
 
@@ -20,14 +16,6 @@ A beautiful, feature-rich statusline for **Claude Code** that displays real-time
 - 💾 **Smart Caching** - Reduces API calls with 60-second cache (15s on errors)
 - ⚡ **Zero Dependencies** - No external npm packages required
 - 🚀 **Fast Performance** - Built for speed with Bun or Node.js
-
-- 📊 **Real-time Quota Monitoring** - Shows current token quota usage from GLM API
-- 🔄 **Context Usage** - Displays current context window usage
-- ⏰ **Reset Timer** - Shows time until quota resets
-- 🔧 **MCP Usage** - Displays Model Context Protocol usage percentage
-- 🌿 **Git Integration** - Shows current directory and git branch
-- 🎨 **Colored Progress Bars** - Visual indicators with color coding (green/yellow/red)
-- 💾 **Smart Caching** - Reduces API calls with 60-second cache
 
 ## 📸 Preview
 
@@ -82,7 +70,7 @@ Claude Code → statusline-command.js → GLM API
 ### Option 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/glm-statusline.git
+git clone https://github.com/AamiRobin/glm-statusline.git
 cd glm-statusline
 npm install
 ```
@@ -91,9 +79,9 @@ npm install
 
 1. Download `statusline-command.js` to your `.claude` directory:
 ```bash
-curl -o ~/.claude/statusline-command.js https://raw.githubusercontent.com/your-username/glm-statusline/main/statusline-command.js
+curl -o ~/.claude/statusline-command.js https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/statusline-command.js
 # On Windows
-curl -o %USERPROFILE%\.claude\statusline-command.js https://raw.githubusercontent.com/your-username/glm-statusline/main/statusline-command.js
+curl -o %USERPROFILE%\.claude\statusline-command.js https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/statusline-command.js
 ```
 
 ### Option 3: Using Bun (Recommended for Windows)
@@ -148,12 +136,6 @@ bun add -g glm-statusline
 | Reset | Time until quota resets |
 | MCP | Model Context Protocol usage |
 
-## Color Coding
-
-- 🟢 **Green** (< 70% usage)
-- 🟡 **Yellow** (70-89% usage)
-- 🔴 **Red** (≥ 90% usage)
-
 ## Cache Behavior
 
 - Normal cache duration: 60 seconds
@@ -181,7 +163,7 @@ Check that:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/glm-statusline.git
+git clone https://github.com/AamiRobin/glm-statusline.git
 cd glm-statusline
 
 # Test locally
