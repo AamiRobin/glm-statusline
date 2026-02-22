@@ -105,11 +105,23 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AamiRobin/glm-statusli
 ```
 
 2. Add to your `~/.claude/settings.json` (or `%USERPROFILE%\.claude\settings.json`):
+
+**For macOS/Linux:**
 ```json
 {
   "statusLine": {
     "type": "command",
     "command": "node ~/.claude/statusline-command.js"
+  }
+}
+```
+
+**For Windows:**
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "node %USERPROFILE%\\.claude\\statusline-command.js"
   }
 }
 ```
@@ -132,6 +144,18 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AamiRobin/glm-statusli
 ```
 
 2. For Bun (faster on Windows):
+
+**On Windows:**
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "bun %USERPROFILE%\\.claude\\statusline-command.js"
+  }
+}
+```
+
+**On macOS/Linux:**
 ```json
 {
   "statusLine": {
