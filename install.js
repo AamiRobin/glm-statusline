@@ -43,16 +43,12 @@ const useBun = process.env.npm_config_user_agent && process.env.npm_config_user_
 const command = useBun ? 'bun' : 'node';
 
 // Use appropriate path format for Windows vs Unix
-// Bun on Windows needs forward slashes and full path
-// Node works with both, but we use USERPROFILE for consistency
+// Both Bun and Node on Windows need forward slashes in the actual path
 const isWindows = process.platform === 'win32';
 let scriptPathForCommand;
-if (useBun && isWindows) {
-  // Bun on Windows needs forward slashes
+if (isWindows) {
+  // Convert backslashes to forward slashes for both Node and Bun on Windows
   scriptPathForCommand = targetScriptPath.replace(/\\/g, '/');
-} else if (isWindows) {
-  // Node on Windows can use USERPROFILE environment variable
-  scriptPathForCommand = '%USERPROFILE%\\.claude\\statusline-command.js';
 } else {
   // Unix systems
   scriptPathForCommand = targetScriptPath;
