@@ -56,10 +56,17 @@ https.get(SCRIPT_URL, (response) => {
     const command = 'node';
 
     // Use appropriate path format for Windows vs Unix
+    // Bun on Windows needs forward slashes and full path
+    // Node works with both, but we use USERPROFILE for consistency
     const isWindows = process.platform === 'win32';
-    const scriptPathForCommand = isWindows
-      ? '%USERPROFILE%\\.claude\\statusline-command.js'
-      : targetScriptPath;
+    let scriptPathForCommand;
+    if (isWindows) {
+      // Node on Windows can use USERPROFILE environment variable
+      scriptPathForCommand = '%USERPROFILE%\\.claude\\statusline-command.js';
+    } else {
+      // Unix systems
+      scriptPathForCommand = targetScriptPath;
+    }
     const statuslineCommand = `${command} ${scriptPathForCommand}`;
 
     // Update statusline configuration
