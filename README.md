@@ -116,15 +116,16 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AamiRobin/glm-statusli
 }
 ```
 
-**For Windows:**
+**For Windows** (use forward slashes in the path):
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "node %USERPROFILE%\\.claude\\statusline-command.js"
+    "command": "node C:/Users/YOUR_USERNAME/.claude/statusline-command.js"
   }
 }
 ```
+Replace `YOUR_USERNAME` with your actual Windows username.
 
 ## Configuration
 
@@ -143,9 +144,9 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AamiRobin/glm-statusli
 }
 ```
 
-2. For Bun (faster on Windows):
+2. For Bun (faster on Windows or Unix systems):
 
-**On Windows (use full path with forward slashes):**
+**On Windows:**
 ```json
 {
   "statusLine": {
