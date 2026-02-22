@@ -67,27 +67,51 @@ Claude Code → statusline-command.js → GLM API
 
 ## Installation
 
+### 🚀 Quick Install (Recommended)
+
+Run this single command to automatically install and configure the statusline:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/remote-install.js | node
+```
+
+**On Windows PowerShell:**
+```powershell
+Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/remote-install.js" -UseBasicParsing).Content
+```
+
+This command will:
+- ✅ Download the statusline script to your `.claude` directory
+- ✅ Automatically configure your `settings.json` file
+- ✅ Set up the statusline command
+
 ### Option 1: Clone the Repository
 
 ```bash
 git clone https://github.com/AamiRobin/glm-statusline.git
 cd glm-statusline
-npm install
+node install.js
 ```
 
-### Option 2: Download Script Only
+### Option 2: Manual Installation
 
 1. Download `statusline-command.js` to your `.claude` directory:
 ```bash
+# On macOS/Linux
 curl -o ~/.claude/statusline-command.js https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/statusline-command.js
-# On Windows
-curl -o "$env:USERPROFILE\.claude\statusline-command.js" https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/statusline-command.js
+
+# On Windows PowerShell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AamiRobin/glm-statusline/main/statusline-command.js" -OutFile "$env:USERPROFILE\.claude\statusline-command.js"
 ```
 
-### Option 3: Using Bun (Recommended for Windows)
-
-```bash
-bun add -g glm-statusline
+2. Add to your `~/.claude/settings.json` (or `%USERPROFILE%\.claude\settings.json`):
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/statusline-command.js"
+  }
+}
 ```
 
 ## Configuration
