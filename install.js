@@ -41,7 +41,13 @@ if (fs.existsSync(settingsPath)) {
 // Determine which command to use (prefer bun if available, otherwise node)
 const useBun = process.env.npm_config_user_agent && process.env.npm_config_user_agent.includes('bun');
 const command = useBun ? 'bun' : 'node';
-const statuslineCommand = `${command} ${targetScriptPath}`;
+
+// Use appropriate path format for Windows vs Unix
+const isWindows = process.platform === 'win32';
+const scriptPathForCommand = isWindows
+  ? '%USERPROFILE%\\.claude\\statusline-command.js'
+  : targetScriptPath;
+const statuslineCommand = `${command} ${scriptPathForCommand}`;
 
 // Update statusline configuration
 settings.statusLine = {

@@ -54,7 +54,13 @@ https.get(SCRIPT_URL, (response) => {
 
     // Determine which command to use (prefer bun if available, otherwise node)
     const command = 'node';
-    const statuslineCommand = `${command} ${targetScriptPath}`;
+
+    // Use appropriate path format for Windows vs Unix
+    const isWindows = process.platform === 'win32';
+    const scriptPathForCommand = isWindows
+      ? '%USERPROFILE%\\.claude\\statusline-command.js'
+      : targetScriptPath;
+    const statuslineCommand = `${command} ${scriptPathForCommand}`;
 
     // Update statusline configuration
     settings.statusLine = {
