@@ -376,8 +376,8 @@ function formatStatuslineOutput(usageData, sessionContext) {
       100 - Math.round(sessionContext.context_window.remaining_percentage);
   }
   const contextUsageStr = contextUsagePercent !== null
-    ? `CTX: ${renderProgressBar(contextUsagePercent)}`
-    : "CTX: --";
+    ? `Ctx: ${renderProgressBar(contextUsagePercent)}`
+    : "Ctx: --";
 
   // Quota usage from GLM API
   const quotaUsageStr = `Quota: ${renderProgressBar(usageData.quotaPercent)}`;
