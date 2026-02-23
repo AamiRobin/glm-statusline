@@ -332,7 +332,7 @@ function renderProgressBar(percentage = 0, barWidth = 10) {
   const filledBlocks = Math.round((percentage / 100) * barWidth);
   const emptyBlocks = barWidth - filledBlocks;
   const filledSegment = "\u2588".repeat(filledBlocks);
-  const emptySegment = "\u2591".repeat(emptyBlocks);
+  const emptySegment = "\u2588".repeat(emptyBlocks);
   let barColor;
   if (percentage >= 90) {
     barColor = colors.red;
@@ -368,14 +368,16 @@ function formatStatuslineOutput(usageData, sessionContext) {
   const gitBranchStr = gitBranch ? ` | git:(${gitBranch})` : "";
 
   // Context usage from session data
-  let contextUsagePercent = "--";
+  let contextUsagePercent = null;
   if (sessionContext?.context_window?.used_percentage != null) {
     contextUsagePercent = Math.round(sessionContext.context_window.used_percentage);
   } else if (sessionContext?.context_window?.remaining_percentage != null) {
     contextUsagePercent =
       100 - Math.round(sessionContext.context_window.remaining_percentage);
   }
-  const contextUsageStr = `CTX: ${contextUsagePercent === "--" ? "--" : renderProgressBar(contextUsagePercent)}`;
+  const contextUsageStr = contextUsagePercent !== null
+    ? `CTX: ${renderProgressBar(contextUsagePercent)}`
+    : "CTX: --";
 
   // Quota usage from GLM API
   const quotaUsageStr = `Quota: ${renderProgressBar(usageData.quotaPercent)}`;
