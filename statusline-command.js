@@ -332,7 +332,7 @@ function renderProgressBar(percentage = 0, barWidth = 10) {
   const filledBlocks = Math.round((percentage / 100) * barWidth);
   const emptyBlocks = barWidth - filledBlocks;
   const filledSegment = "\u2588".repeat(filledBlocks);
-  const emptySegment = "\u2588".repeat(emptyBlocks);
+  const emptySegment = "\u2591".repeat(emptyBlocks);
   let barColor;
   if (percentage >= 90) {
     barColor = colors.red;
