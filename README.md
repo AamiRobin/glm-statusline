@@ -12,7 +12,8 @@ A beautiful, feature-rich statusline for **Claude Code** that displays real-time
 - ⏰ **Reset Timer** - Shows time until quota resets (e.g., "4h 30m")
 - 🔧 **MCP Usage** - Displays Model Context Protocol usage percentage
 - 🌿 **Git Integration** - Shows current directory and git branch
-- 🎨 **Colored Progress Bars** - Visual indicators with smart color coding (green/yellow/red)
+- 🎨 **Colored Percentages** - Smart color coding (green/yellow/red) for usage levels
+- 📅 **Weekly Limit Support** - Displays weekly limit when available from API
 - 💾 **Smart Caching** - Reduces API calls with 60-second cache (15s on errors)
 - ⚡ **Zero Dependencies** - No external npm packages required
 - 🚀 **Fast Performance** - Built for speed with Bun or Node.js
@@ -20,7 +21,7 @@ A beautiful, feature-rich statusline for **Claude Code** that displays real-time
 ## 📸 Preview
 
 ```
-📁 Tickits-Bot | git:(main) | CTX: █████░░░░░ 45% | Quota: █░░░░░░░░ 14% | Reset: 3h 56m | MCP: 58%
+📁 Tickits-Bot | git:(main) | CTX: 45% | Quota: 14% | Reset: 3h 56m | MCP: 58%
 ```
 
 ### What Each Component Means
@@ -29,12 +30,15 @@ A beautiful, feature-rich statusline for **Claude Code** that displays real-time
 |-----------|-------------|---------|
 | 📁 Tickits-Bot | Current working directory name | `my-project` |
 | git:(main) | Current git branch | `git:(develop)` |
-| CTX: 45% | Context window usage | `CTX: █████░░░░░ 45%` |
-| Quota: 14% | GLM API quota usage | `Quota: ██░░░░░░░░ 14%` |
+| CTX: 45% | Context window usage (colored by level) | `CTX: 45%` |
+| Quota: 14% | GLM API quota usage (colored by level) | `Quota: 14%` |
+| Weekly: 78% | Weekly limit usage (when available, colored by level) | `Weekly: 78%` |
 | Reset: 3h 56m | Time until quota resets | `Reset: 4h 30m` |
 | MCP: 58% | Model Context Protocol usage | `MCP: 25%` |
 
 ### Color Coding
+
+Applies to Context, Quota, and Weekly percentages:
 
 - 🟢 **Green** (< 70% usage) - Healthy
 - 🟡 **Yellow** (70-89% usage) - Warning
@@ -181,8 +185,9 @@ Replace `YOUR_USERNAME` with your actual Windows username.
 |-----------|-------------|
 | 📁 Directory | Current working directory name |
 | git:(branch) | Current git branch (if in a git repo) |
-| CTX | Context window usage percentage |
-| Quota | GLM API quota usage percentage |
+| CTX | Context window usage percentage with color coding |
+| Quota | GLM API quota usage percentage with color coding |
+| Weekly | Weekly limit usage percentage (when available from API) with color coding |
 | Reset | Time until quota resets |
 | MCP | Model Context Protocol usage |
 
@@ -218,6 +223,7 @@ cd glm-statusline
 
 # Test locally
 echo '{"context_window":{"used_percentage":45}}' | node statusline-command.js
+# Output: 📁 my-project | git:(main) | CTX: 45% | Quota: 64% | Reset: 2h 30m | MCP: 100%
 ```
 
 ## Contributing
@@ -248,6 +254,12 @@ If you encounter any issues or have questions, please:
 - Read the troubleshooting guide above
 
 ## Changelog
+
+### v1.1.0
+- Replaced progress bars with colored percentages for cleaner display
+- Added weekly limit support (displays when available from API)
+- Improved visual clarity with green/yellow/red color coding
+- Weekly limit hidden when not provided by API
 
 ### v1.0.0 (Initial Release)
 - Real-time quota monitoring from GLM API
