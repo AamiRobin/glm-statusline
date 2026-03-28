@@ -242,7 +242,7 @@ function formatTimeUntilReset(resetTimestamp) {
 }
 async function fetchQuotaDataFromApi() {
   if (!glmApiConfig) {
-    return { quotaPercent: 0, mcpPercent: 0 };
+    return { quotaPercent: 0, mcpPercent: 0, weeklyPercent: 0 };
   }
   try {
     const apiResponse = await getQuotaLimitFromApi(glmApiConfig);
@@ -250,6 +250,7 @@ async function fetchQuotaDataFromApi() {
       const limits = apiResponse.data.limits;
       let quotaPercent = 0;
       let mcpPercent = 0;
+      let weeklyPercent = 0;
       let nextResetTimestamp;
       for (const limit of limits) {
         if (limit.type === "TOKENS_LIMIT") {
@@ -259,14 +260,17 @@ async function fetchQuotaDataFromApi() {
         if (limit.type === "TIME_LIMIT") {
           mcpPercent = Math.round(limit.percentage || 0);
         }
+        if (limit.type === "WEEKLY_LIMIT") {
+          weeklyPercent = Math.round(limit.percentage || 0);
+        }
       }
       const formattedResetTime = nextResetTimestamp
         ? formatTimeUntilReset(nextResetTimestamp)
         : void 0;
-      return { quotaPercent, mcpPercent, nextResetTimestamp, formattedResetTime };
+      return { quotaPercent, mcpPercent, weeklyPercent, nextResetTimestamp, formattedResetTime };
     }
   } catch {}
-  return { quotaPercent: 0, mcpPercent: 0 };
+  return { quotaPercent: 0, mcpPercent: 0, weeklyPercent: 0 };
 }
 
 async function fetchToolUsageDataFromApi(startTime, endTime) {
@@ -291,6 +295,7 @@ async function fetchAllUsageData() {
       error: "setup_required",
       quotaPercent: 0,
       mcpPercent: 0,
+      weeklyPercent: 0,
     };
   }
   const now = new Date();
@@ -304,11 +309,13 @@ async function fetchAllUsageData() {
     ]);
     let quotaPercent = 0;
     let finalMcpPercent = 0;
+    let weeklyPercent = 0;
     let nextResetTimestamp;
     let formattedResetTime;
     if (quotaResult.status === "fulfilled") {
       quotaPercent = quotaResult.value.quotaPercent;
       finalMcpPercent = quotaResult.value.mcpPercent;
+      weeklyPercent = quotaResult.value.weeklyPercent;
       nextResetTimestamp = quotaResult.value.nextResetTimestamp;
       formattedResetTime = quotaResult.value.formattedResetTime;
     }
@@ -318,6 +325,7 @@ async function fetchAllUsageData() {
     const result = {
       quotaPercent,
       mcpPercent: finalMcpPercent,
+      weeklyPercent,
       timestamp: Date.now(),
       nextResetTimestamp,
       formattedResetTime,
@@ -328,20 +336,16 @@ async function fetchAllUsageData() {
     return { error: "loading", apiUnavailable: true };
   }
 }
-function renderProgressBar(percentage = 0, barWidth = 10) {
-  const filledBlocks = Math.round((percentage / 100) * barWidth);
-  const emptyBlocks = barWidth - filledBlocks;
-  const filledSegment = "\u2588".repeat(filledBlocks);
-  const emptySegment = "\u2591".repeat(emptyBlocks);
-  let barColor;
+function renderColoredPercentage(percentage = 0) {
+  let color;
   if (percentage >= 90) {
-    barColor = colors.red;
+    color = colors.red;
   } else if (percentage >= 70) {
-    barColor = colors.yellow;
+    color = colors.yellow;
   } else {
-    barColor = colors.green;
+    color = colors.green;
   }
-  return `${barColor}${filledSegment}${colors.gray}${emptySegment} ${percentage}%`;
+  return `${color}${percentage}%${colors.reset}`;
 }
 
 function getCurrentGitBranch() {
@@ -376,15 +380,16 @@ function formatStatuslineOutput(usageData, sessionContext) {
       100 - Math.round(sessionContext.context_window.remaining_percentage);
   }
   const contextUsageStr = contextUsagePercent !== null
-    ? `Ctx: ${renderProgressBar(contextUsagePercent)}`
+    ? `Ctx: ${renderColoredPercentage(contextUsagePercent)}`
     : "Ctx: --";
 
   // Quota usage from GLM API
-  const quotaUsageStr = `Quota: ${renderProgressBar(usageData.quotaPercent)}`;
+  const quotaUsageStr = `Quota: ${renderColoredPercentage(usageData.quotaPercent)}`;
+  const weeklyUsageStr = usageData.weeklyPercent > 0 ? ` | Weekly: ${renderColoredPercentage(usageData.weeklyPercent)}` : "";
   const mcpUsageStr = `MCP: ${usageData.mcpPercent}%`;
   const resetTimeStr = `Reset: ${usageData.formattedResetTime || "--"}`;
 
-  return `${colors.gray}${currentDirStr}${gitBranchStr}${colors.reset} | ${contextUsageStr} | ${quotaUsageStr} | ${resetTimeStr} | ${mcpUsageStr}`;
+  return `${colors.gray}${currentDirStr}${gitBranchStr}${colors.reset} | ${contextUsageStr} | ${quotaUsageStr}${weeklyUsageStr} | ${resetTimeStr} | ${mcpUsageStr}`;
 }
 async function main() {
   let sessionContext = {};
